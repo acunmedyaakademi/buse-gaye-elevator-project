@@ -2,6 +2,7 @@
   background-color: gray;
   width: 50px;
   height: 40px;
+  align-self: flex-end;
 }
 
 .elevator-container {
@@ -11,7 +12,7 @@
 
 .floors {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   gap: 15px;
 
   p {
@@ -25,4 +26,17 @@
 
 .move-btn {
   height: 40px;
+}
+
+.add-person-container {
+  display: flex;
+  gap: 10px;
+}
+
+.person-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  list-style: none;
+  padding: 0;
 }
