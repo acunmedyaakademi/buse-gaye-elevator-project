@@ -5,7 +5,7 @@ function App() {
   return (
     <>
     deneme
-    buse
+    buseeee
     </>
   )
 }
