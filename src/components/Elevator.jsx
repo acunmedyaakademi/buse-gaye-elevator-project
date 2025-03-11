@@ -1,15 +1,22 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react';
 
 const totalFloors = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 export default function Elevator() {
   const [floors, setFloors] = useState(totalFloors);
   const [peoples, setPeoples] = useState([]);
-  const [currentFloor, setCurrentFloor] = useState(0); // şu anda bulunulan kat
-  const [elevatorFloor, setElevatorFloor] = useState(0); // gidilmek istenen kat
+  const [currentFloor, setCurrentFloor] = useState(0); // Asansörün bulunduğu kat
+  const [elevatorFloor, setElevatorFloor] = useState(0); // Gidilmek istenen kat
+  const [transitionTime, setTransitionTime] = useState(0); // Hareket süresi
 
-  function moveElevator(floor) {
-    floor = parseInt(prompt("Lütfen gitmek istediğiniz kat numarasını giriniz:"));
+  function moveElevator() {
+    let floor = parseInt(prompt("Lütfen gitmek istediğiniz kat numarasını giriniz:"), 10);
+    if (isNaN(floor) || floor < 0 || floor > 10) {
+      alert("Geçerli bir kat numarası giriniz!");
+      return;
+    }
+
+    setTransitionTime(Math.abs(floor - currentFloor) * 0.5);
     setElevatorFloor(floor);
   }
 
@@ -17,15 +24,17 @@ export default function Elevator() {
     setPeoples([...peoples, "💁🏻‍♀️"]);
   }
 
-  function generateRandomNumber() {
-    return Math.floor(Math.random() * 11);
-  }
+  // Asansör hedef kata ulaştığında currentFloor'u güncelle
+  useEffect(() => {
+    if (elevatorFloor !== currentFloor) {
+      const timer = setTimeout(() => {
+        setCurrentFloor(elevatorFloor);
+        console.log(transitionTime)
+      }, transitionTime * 500); // Hareket süresi kadar bekleyip güncelle
 
-  const transitionTime = elevatorFloor > currentFloor
-    ? (elevatorFloor - currentFloor) * 1
-    : (currentFloor - elevatorFloor) * 1;
-
-  console.log(transitionTime)
+      return () => clearTimeout(timer);
+    }
+  }, [elevatorFloor, transitionTime]);
 
   return (
     <>
@@ -41,9 +50,8 @@ export default function Elevator() {
           transform: `translateY(-${elevatorFloor * 55}px)`,
           transition: `transform ${transitionTime}s ease-in-out`
         }}>
-
         </div>
-        <button onClick={moveElevator} className='move-btn'>Hareket ettir</button>
+        <button onClick={moveElevator} className='move-btn'>Hareket Ettir</button>
       </div>
       <div className="add-person-container">
         <button onClick={addPeople}>Kişi Ekle</button>
@@ -54,5 +62,5 @@ export default function Elevator() {
         </ul>
       </div>
     </>
-  )
-};
+  );
+}
