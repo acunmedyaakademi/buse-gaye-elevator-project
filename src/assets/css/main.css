@@ -1,0 +1,28 @@
+.elevator {
+  background-color: gray;
+  width: 50px;
+  height: 40px;
+}
+
+.elevator-container {
+  display: flex;
+  gap: 20px;
+}
+
+.floors {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  p {
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 40px;
+    background-color: lightblue;
+  }
+}
+
+.move-btn {
+  height: 40px;
+}

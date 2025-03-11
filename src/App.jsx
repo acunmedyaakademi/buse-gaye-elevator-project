@@ -1,12 +1,11 @@
-import { useState } from 'react'
+import Elevator from "./components/Elevator";
 
 function App() {
 
+
   return (
     <>
-      deneme
-      buseeee
-      gayeeegit
+      <Elevator />
     </>
   )
 }
