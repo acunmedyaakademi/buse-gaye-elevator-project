@@ -3,6 +3,43 @@
   width: 50px;
   height: 40px;
   align-self: flex-end;
+  position: relative;
+  border: 2px solid black;
+}
+
+.elevator .door-left,
+.elevator .door-right {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  background-color: black;
+  transition: width 0.5s ease-in-out;
+}
+
+.elevator .door-left {
+  left: 0;
+}
+
+.elevator .door-right {
+  right: 0;
+}
+
+.elevator.opening .door-left {
+  width: 0;
+}
+
+.elevator.opening .door-right {
+  width: 0;
+}
+
+.passenger {
+  position: absolute;
+  font-size: 20px;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.passenger.hidden {
+  z-index: -10;
 }
 
 .elevator-container {
