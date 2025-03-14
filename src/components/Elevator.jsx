@@ -106,30 +106,31 @@ export default function Elevator() {
 
   function handleSelect() {
     const selectedFloor = Number(document.getElementById("targetFloor").value);
-            setOpenDialog(false);
-            setOpening(false);
-            setIsMoving(true); 
+    setOpenDialog(false);
+    setOpening(false);
+    setIsMoving(true);
 
-            const toTargetTime = Math.abs(selectedFloor - currentFloor) * 0.5;
-            setTransitionTime(toTargetTime);
-            setElevatorFloor(selectedFloor);
+    const toTargetTime = Math.abs(selectedFloor - currentFloor) * 0.5;
+    setTransitionTime(toTargetTime);
+    setElevatorFloor(selectedFloor);
 
-            setTimeout(() => {
-              setCurrentFloor(selectedFloor);
-              setTimeout(() => {
-                setOpening(true);
-                setTimeout(() => {
-                  setFloors((prev) => {
-                    const newFloors = [...prev];
-                    newFloors[selectedFloor] = [...newFloors[selectedFloor], passenger.img];
-                    return newFloors;
-                  });
-                  setPassenger(null);
-                  setTimeout(() => setOpening(false), 500);
-                }, 500);
-              }, 500);
-            }, toTargetTime * 1000);
-          
+    setTimeout(() => {
+      setCurrentFloor(selectedFloor);
+      setTimeout(() => {
+        setOpening(true);
+        setTimeout(() => {
+          setFloors((prev) => {
+            const newFloors = [...prev];
+            newFloors[selectedFloor] = [...newFloors[selectedFloor], passenger.img];
+            return newFloors;
+          });
+          setPassenger(null);
+          setTimeout(() => setOpening(false),
+            setIsMoving(false), 500);
+        }, 500);
+      }, 500);
+    }, toTargetTime * 1000);
+
   }
 
   return (
@@ -190,7 +191,7 @@ export default function Elevator() {
           <button onClick={() => handleSelect()}>Git</button>
         </dialog>
       )}
-      
+
     </>
   );
 }
