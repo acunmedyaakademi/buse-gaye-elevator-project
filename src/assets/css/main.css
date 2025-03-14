@@ -1,10 +1,62 @@
-.elevator {
-  background-color: gray;
-  width: 50px;
-  height: 40px;
-  align-self: flex-end;
+.elevator-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 30px;
   position: relative;
-  border: 2px solid black;
+  margin: 0 auto;
+}
+
+.floors {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 15px;
+}
+
+.floor {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 120px;
+  height: 40px;
+  background: #ffffff;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  padding: 0 10px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #2e4057;
+  box-shadow: inset 0 -3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.floor button {
+  background: #ff6b6b;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  outline: none;
+}
+
+.floor button:hover {
+  background: #e04c4c;
+}
+
+.elevator {
+  position: relative;
+  width: 90px;
+  height: 40px;
+  background: linear-gradient(145deg, #e0e0e0, #ffffff);
+  border: 3px solid #bbb;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.5s ease-in-out;
 }
 
 .elevator .door-left,
@@ -12,8 +64,8 @@
   position: absolute;
   width: 50%;
   height: 100%;
-  background-color: black;
-  transition: width 0.5s ease-in-out;
+  background: #777;
+  transition: width 0.5s ease;
 }
 
 .elevator .door-left {
@@ -33,47 +85,55 @@
 }
 
 .passenger {
-  position: absolute;
-  font-size: 20px;
-  transition: opacity 0.5s ease-in-out;
+  font-size: 26px;
+  transition: opacity 0.5s ease;
 }
 
 .passenger.hidden {
-  z-index: -10;
+  opacity: 0;
 }
 
-.elevator-container {
+.btns-area {
   display: flex;
+  flex-direction: column;
   gap: 20px;
+  justify-content: center;
+  align-items: center;
 }
 
-.floors {
-  display: flex;
-  flex-direction: column-reverse;
-  gap: 15px;
-
-  p {
-    justify-content: center;
-    align-items: center;
-    width: 50px;
-    height: 40px;
-    background-color: lightblue;
-  }
+.move-btn, .add-btn {
+  height: 50px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
 
-.move-btn {
-  height: 40px;
+.move-btn:hover {
+  background: #2980b9;
 }
 
 .add-person-container {
   display: flex;
-  gap: 10px;
+  gap: 30px;
+}
+
+.add-btn {
+  background: #27ae60;
+}
+
+.add-btn:hover {
+  background: #1e8c4a;
 }
 
 .person-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
   list-style: none;
   padding: 0;
 }
@@ -83,11 +143,11 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: white;
+  background: #ffffff;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  z-index: 11;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  z-index: 100;
 }
 
 .overlay {
@@ -97,5 +157,5 @@
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 10;
+  z-index: 50;
 }
