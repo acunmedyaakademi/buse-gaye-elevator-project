@@ -31,7 +31,7 @@ export default function Elevator() {
       setTimeout(() => {
         setOpening(true); // Kapıyı aç
         setTimeout(() => {
-          setPassenger(person); // Kapı açıldıktan sonra kişi binebilir
+          setPassenger({ ...person }); // Kapı açıldıktan sonra kişi binebilir
           setPeoples((prev) => prev.slice(1)); // Kişiyi listeden çıkar
 
           // Kapıyı tekrar kapat
@@ -89,7 +89,7 @@ export default function Elevator() {
         setOpening(true);
         setIsMoving(false);
         const person = floors[floor][0];
-        setPassenger(person); // Asansöre binen kişi
+        setPassenger({ img: person, id: Math.random() }); // Asansöre binen kişi
         console.log(person);
         setFloors((prev) => {
           const newFloors = [...prev];
@@ -97,10 +97,39 @@ export default function Elevator() {
           return newFloors;
         });
         console.log("Kişi asansöre bindi:", person);
+        setOpenDialog(true);
       }, 500);
 
       console.log("aaa");
     }, toTargetTime * 1000);
+  }
+
+  function handleSelect() {
+    const selectedFloor = Number(document.getElementById("targetFloor").value);
+            setOpenDialog(false);
+            setOpening(false);
+            setIsMoving(true); 
+
+            const toTargetTime = Math.abs(selectedFloor - currentFloor) * 0.5;
+            setTransitionTime(toTargetTime);
+            setElevatorFloor(selectedFloor);
+
+            setTimeout(() => {
+              setCurrentFloor(selectedFloor);
+              setTimeout(() => {
+                setOpening(true);
+                setTimeout(() => {
+                  setFloors((prev) => {
+                    const newFloors = [...prev];
+                    newFloors[selectedFloor] = [...newFloors[selectedFloor], passenger.img];
+                    return newFloors;
+                  });
+                  setPassenger(null);
+                  setTimeout(() => setOpening(false), 500);
+                }, 500);
+              }, 500);
+            }, toTargetTime * 1000);
+          
   }
 
   return (
@@ -148,6 +177,20 @@ export default function Elevator() {
           ))}
         </ul>
       </div>
+
+      {openDialog && <div className="overlay"></div>}
+      {openDialog && (
+        <dialog open className="dialog">
+          <h3>Hedef Kat Seç</h3>
+          <select id="targetFloor">
+            {[...Array(11).keys()].map((floor) => (
+              <option key={floor} value={floor}>{floor}</option>
+            ))}
+          </select>
+          <button onClick={() => handleSelect()}>Git</button>
+        </dialog>
+      )}
+      
     </>
   );
 }
